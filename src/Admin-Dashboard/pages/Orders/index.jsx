@@ -15,6 +15,6 @@ const Orders = () => {
 }
 const styles = {
     ordersWrapper: "flex md:felx-col",
-    ordersContent: "transition-all duration-200 linear h-[92vh] md:w-[85%] w-[100vh] dark:bg-[rgb(20,20,31)] bg-pink-100",
+    ordersContent: "transition-all duration-200 linear h-[92vh] md:w-[70%] lg:w-[85%] w-[100vh] dark:bg-[rgb(20,20,31)] bg-pink-100",
 }
 export default Orders

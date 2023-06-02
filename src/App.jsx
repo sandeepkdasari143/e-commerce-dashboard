@@ -11,7 +11,8 @@ import SignUp from './pages/Authentication/SignUp';
 import DashboardHome from './Admin-Dashboard/pages/DashboardHome';
 import Orders from './Admin-Dashboard/pages/Orders';
 import Transactions from './Admin-Dashboard/pages/Transactions';
-import Products from './Admin-Dashboard/pages/Products';
+import Stock from './Admin-Dashboard/pages/Stock';
+import AdminPanel from './Admin-Dashboard/pages/AdminPanel';
 
 const App = () => {
 
@@ -53,10 +54,11 @@ const App = () => {
         <Route path="/" element={<HomeLayout />}>
           <Route index element={<Home />} />
         </Route>
-        <Route path="/dashboard" element={<AdminProtectedRoute><DashboardHome /></AdminProtectedRoute>} />
-        <Route path="/dashboard/products" element={<AdminProtectedRoute><Products /></AdminProtectedRoute>} />
-        <Route path="/dashboard/orders" element={<AdminProtectedRoute><Orders /></AdminProtectedRoute>} />
-        <Route path="/dashboard/transactions" element={<AdminProtectedRoute><Transactions /></AdminProtectedRoute>} />
+        <Route path="/admin/dashboard" element={<AdminProtectedRoute><DashboardHome /></AdminProtectedRoute>} />
+        <Route path="/admin/stock" element={<AdminProtectedRoute><Stock /></AdminProtectedRoute>} />
+        <Route path="/admin/orders" element={<AdminProtectedRoute><Orders /></AdminProtectedRoute>} />
+        <Route path="/admin/transactions" element={<AdminProtectedRoute><Transactions /></AdminProtectedRoute>} />
+        <Route path="/admin/panel" element={<AdminProtectedRoute><AdminPanel /></AdminProtectedRoute>} />
       </Routes>
     </>
   );

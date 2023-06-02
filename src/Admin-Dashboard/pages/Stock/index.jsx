@@ -5,12 +5,12 @@ import { useState } from 'react'
 import AddButton from '../../../components/buttons/AddButton'
 import ProductForm from "./ProductForm";
 
-const Products = () => {
+const Stock = () => {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const CloseAddModal = () => setIsAddModalOpen(false);
 
     return (
-        <div className="transition-all duration-200 linear h-[100vh] w-[100vw] dark:bg-[rgb(20,20,31)] bg-pink-100">
+        <div className="transition-all duration-200 linear h-[100vh] w-[100vw] dark:bg-[rgb(20,20,31)] bg-pink-50">
         <DashboardHeader />
         <main className={styles.productsWrapper}>
             <DashboardSidebar />
@@ -27,7 +27,7 @@ const Products = () => {
     );
 };
 const styles = {
-    productsWrapper: "flex md:felx-col",
-    dashboardContent:"transition-all duration-200 linear h-[92vh] md:w-[85%] w-[100vh] dark:bg-[rgb(20,20,31)] bg-pink-100",
+    productsWrapper: "flex flex-col md:flex-row",
+    productsContent:"transition-all duration-200 linear h-[92vh] md:w-[70%] lg:w-[85%] w-[100vh] dark:bg-[rgb(20,20,31)] bg-pink-100",
 };
-export default Products
+export default Stock

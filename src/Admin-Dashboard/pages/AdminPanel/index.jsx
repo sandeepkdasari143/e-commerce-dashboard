@@ -2,14 +2,14 @@
 import DashboardHeader from '../../components/DashboardHeader'
 import DashboardSidebar from '../../components/DashboardSidebar'
 
-const DashboardHome = () => {
+const AdminPanel = () => {
 
     return (
         <div className='transition-all duration-200 linear h-[100vh] w-[100%] dark:bg-[rgb(20,20,31)] bg-pink-50'>
             <DashboardHeader />
-            <main className={styles.dashboardWrapper}>
+            <main className={styles.panelWrapper}>
                 <DashboardSidebar />
-                <section className={styles.dashboardContent}>
+                <section className={styles.panelContent}>
                 
                 </section>
             </main>
@@ -17,7 +17,7 @@ const DashboardHome = () => {
     )
 }
 const styles = {
-    dashboardWrapper: "flex md:felx-col",
-    dashboardContent: "transition-all duration-200 linear h-[92vh] md:w-[70%] lg:w-[85%] w-[100vh] dark:bg-[rgb(20,20,31)] bg-pink-100",
+    panelWrapper: "flex md:felx-col",
+    panelContent: "transition-all duration-200 linear h-[92vh] md:w-[70%] lg:w-[85%] w-[100vh] dark:bg-[rgb(20,20,31)] bg-pink-100",
 }
-export default DashboardHome
+export default AdminPanel
