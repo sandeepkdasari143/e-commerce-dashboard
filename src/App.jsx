@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_THEME } from './redux-store/theme.slice';
-import { Routes, Route, useNavigate, Navigate} from "react-router-dom";
+import { Routes, Route, Navigate} from "react-router-dom";
 import HomeLayout from './HomeLayout';
 import Home from './pages/Home';
 
@@ -17,7 +17,7 @@ const App = () => {
 
   const theme = useSelector(state => state.theme.theme);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // If the "theme" value of the context changes, then this useEffect will be called...
   React.useEffect(()=>{
@@ -35,10 +35,10 @@ const App = () => {
     }else{
       dispatch(SET_THEME('light'))
     }
-  }, [])
+  }, [dispatch])
 
   const AdminProtectedRoute = ({children}) => {
-    const isAdmin = false;
+    const isAdmin = true;
     if (isAdmin) {
       return children;
     }

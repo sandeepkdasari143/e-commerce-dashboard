@@ -1,4 +1,3 @@
-import React from 'react'
 
 const DashboardSidebar = () => {
     return (
@@ -9,7 +8,7 @@ const DashboardSidebar = () => {
 }
 
 const styles = {
-    sidebarWrapper: "md:h-[92vh] md:w-[20%] w-[100vh]"
+    sidebarWrapper: "transition-all duration-200 linear border-r-[1px] dark:border-gray-700 border-pink-200 md:h-[92vh] md:w-[15%] w-[100vh] dark:bg-[rgb(20,20,31)] bg-pink-100"
 }
 
 export default DashboardSidebar

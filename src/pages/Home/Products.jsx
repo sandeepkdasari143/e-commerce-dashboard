@@ -1,4 +1,3 @@
-import React from 'react'
 
 const Products = () => {
     return (
@@ -9,6 +8,6 @@ const Products = () => {
     )
 }
 const styles = {
-    productsWrapper: "md:h-[92vh] md:w-[80%] w-[100vh] flex flex-col"
+    productsWrapper: "transition-all duration-200 linear md:h-[92vh] md:w-[85%] w-[100vh] flex flex-col dark:bg-[rgb(20,20,31)]"
 }
 export default Products

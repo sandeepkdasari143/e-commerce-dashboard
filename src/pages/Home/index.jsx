@@ -1,4 +1,3 @@
-import React from 'react'
 import Sidebar from './Sidebar'
 import Products from './Products'
 
@@ -11,6 +10,6 @@ const Home = () => {
     )
 }
 const styles = {
-    homeWrapper: "h-[92vh] w-[100vw] flex"
+    homeWrapper: "transition-all duration-200 linear h-[92vh] w-[100vw] flex"
 }
 export default Home

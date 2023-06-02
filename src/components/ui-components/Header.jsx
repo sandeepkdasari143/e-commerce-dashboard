@@ -1,4 +1,3 @@
-import React from 'react'
 
 const Header = () => {
     return (
@@ -9,7 +8,7 @@ const Header = () => {
 }
 
 const styles = {
-    headerWrapper: "h-[8vh] w-[100vw]"
+    headerWrapper: "h-[8vh] w-[100vw] dark:bg-[rgb(20,20,31)] bg-pink-100 border-b-[1px] dark:border-gray-700 border-pink-200"
 }
 
 export default Header

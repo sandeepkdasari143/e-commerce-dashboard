@@ -1,4 +1,3 @@
-import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { SWITCH_THEME } from '../../redux-store/theme.slice';
 
