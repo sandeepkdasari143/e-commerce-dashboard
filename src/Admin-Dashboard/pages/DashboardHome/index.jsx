@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import AddButton from '../../../components/buttons/AddButton'
+
 import DashboardHeader from '../../components/DashboardHeader'
 import DashboardSidebar from '../../components/DashboardSidebar'
 
@@ -11,12 +10,7 @@ const DashboardHome = () => {
             <main className={styles.dashboardWrapper}>
                 <DashboardSidebar />
                 <section className={styles.dashboardContent}>
-                    <AddButton onClickHandler={() => setIsAddModalOpen(true)}>
-                        <span>Add Product</span>
-                    </AddButton>
-                    <AddModal isAddModalOpen={isAddModalOpen} CloseAddModal={CloseAddModal}>
-                        
-                    </AddModal>
+                
                 </section>
             </main>
         </div>
