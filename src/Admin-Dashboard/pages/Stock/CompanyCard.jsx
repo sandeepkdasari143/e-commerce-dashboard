@@ -4,24 +4,30 @@ import { IconButton } from "@mui/material";
 import AddButton from '../../../components/buttons/AddButton';
 import SecondaryButton from '../../../components/buttons/SecondaryButton';
 import ShortUniqueId from 'short-unique-id';
+import { useNavigate } from 'react-router-dom';
 
 const CompanyCard = ({ setIsProductFormOpen }) => {
+    const navigate = useNavigate();
     const uid = new ShortUniqueId({ length: 10 });
+    const collectionID = uid();
     return (
         <article className={styles.companyCard}>
             <div className={styles.companyDetailsWrapper}>
                 <div className={styles.companyDetails}>
                     <img className={styles.companyImage} src="https://media.istockphoto.com/id/517188688/photo/mountain-landscape.jpg?s=612x612&w=0&k=20&c=A63koPKaCyIwQWOTFBRWXj_PwCrR4cEoOw2S9Q7yVl8=" alt="" />
-                    <div className="flex flex-col items-center gap-2 p-1">
+                    <div className="flex flex-col items-start gap-2 p-1">
                         <h1 className={styles.companyTitle}>Horlickss</h1>
-                        <p className={styles.companyID}>{uid()}</p>
+                        <p className={styles.companyID}>{collectionID+collectionID+collectionID}</p>
                     </div>
                 </div>
                 <IconButton><DeleteRoundedIcon className={styles.DeleteIcon}/></IconButton>
             </div>
             <div className={styles.buttons}>
                 <SecondaryButton>All Products</SecondaryButton>
-                <AddButton onClickHandler={() => setIsProductFormOpen(true)}>Create Product</AddButton>
+                <AddButton onClickHandler={() => {
+                    navigate(`/admin/stock?collectionID=${collectionID}}`);
+                    return setIsProductFormOpen(true)
+                }}>Create Product</AddButton>
             </div>
         </article>
     )
