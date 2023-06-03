@@ -16,6 +16,6 @@ const AddModal = ({ children, modalTitle, isAddModalOpen, CloseAddModal }) => {
 };
 const styles = {
     modalContainer:
-    "text-gray-800 dark:text-white w-[800px] border dark:border-gray-700 border-pink-600 flex flex-col absolute dark:bg-[rgb(27,27,39)] bg-pink-50 p-5 top-[50%] left-[50%] bg-white rounded-3xl -translate-x-1/2 -translate-y-1/2 drop-shadow-3xl",
+    "text-gray-800 dark:text-white border dark:border-gray-700 border-pink-600 flex flex-col absolute dark:bg-[rgb(27,27,39)] bg-pink-50 p-3 top-[50%] left-[50%] bg-white rounded-3xl -translate-x-1/2 -translate-y-1/2 drop-shadow-3xl",
 };
 export default AddModal;

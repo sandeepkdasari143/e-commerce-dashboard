@@ -2,7 +2,7 @@ import React from 'react'
 
 const ProductsGrid = () => {
     return (
-        <div>ProductsGrid</div>
+        <div className='w-[800px]'>ProductsGrid</div>
     )
 }
 

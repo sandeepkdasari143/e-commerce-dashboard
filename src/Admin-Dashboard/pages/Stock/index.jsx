@@ -1,14 +1,22 @@
 import DashboardHeader from "../../components/DashboardHeader";
 import DashboardSidebar from "../../components/DashboardSidebar";
 import AddModal from "../../../components/ui-components/AddModal";
-import { useState } from "react";
 import ProductForm from "./ProductForm";
 import StockHeader from "./StockHeader";
 import StockContent from "./StockContent";
+import { useDispatch, useSelector } from "react-redux";
+import { CLOSE_MODAL } from "../../../redux-store/modal.slice";
+import CompanyForm from "./CompanyForm";
+import ProductsGrid from "./ProductsGrid";
 
 const Stock = () => {
-    const [isProductFormOpen, setIsProductFormOpen] = useState(false);
-    const CloseAddModal = () => setIsProductFormOpen(false);
+
+    const dispatch = useDispatch();
+    const {modalTitle, isModalOpen, isProductFormOpen, isCompanyFormOpen, isProductsGridOpen} = useSelector(state => state.modal);
+    const CloseModal = () => {
+        dispatch(CLOSE_MODAL());
+        
+    }
 
     return (
         <div className="transition-all duration-200 linear lg:h-[100vh] w-[100vw] dark:bg-[rgb(20,20,31)] bg-pink-50">
@@ -16,23 +24,25 @@ const Stock = () => {
             <main className={styles.productsWrapper}>
                 <DashboardSidebar />
                 <section className={styles.productsContent}>
-                    <StockHeader setIsProductFormOpen={setIsProductFormOpen} />
-                    <StockContent setIsProductFormOpen={setIsProductFormOpen} />
+                    <StockHeader />
+                    <StockContent />
                 </section>
             </main>
 
             <AddModal
-                    modalTitle={"Add Product to the Store"}
-                    isAddModalOpen={isProductFormOpen}
-                    CloseAddModal={CloseAddModal}
-                >
-                    <ProductForm CloseModal={CloseAddModal} />
+                    modalTitle={modalTitle}
+                    isAddModalOpen={isModalOpen}
+                    CloseAddModal={CloseModal}
+            >
+                {isProductFormOpen && <ProductForm />}
+                {isCompanyFormOpen && <CompanyForm />}
+                {isProductsGridOpen && <ProductsGrid />}
             </AddModal>
         </div>
     );
 };
 const styles = {
     productsWrapper: "flex flex-col md:flex-row",
-    productsContent: "transition-all duration-200 linear h-[92vh] md:w-[70%] lg:w-[85%] w-[100vh] dark:bg-[rgb(20,20,31)] bg-pink-100",
+    productsContent: "transition-all duration-200 linear h-[92vh] md:w-[70%] lg:w-[85%] w-[100vh] dark:bg-[rgb(20,20,31)] bg-[#FDF4FF]",
 };
 export default Stock;

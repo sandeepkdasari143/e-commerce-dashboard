@@ -1,19 +1,19 @@
 import React from 'react'
 import CompanyCard from './CompanyCard'
 
-const StockContent = ({setIsProductFormOpen}) => {
+const StockContent = () => {
     return (
         <div className="h-[80%] overflow-auto flex flex-wrap gap-5 items-center justify-evenly p-5">
-            <CompanyCard setIsProductFormOpen={setIsProductFormOpen} />
-            <CompanyCard setIsProductFormOpen={setIsProductFormOpen} />
-            <CompanyCard setIsProductFormOpen={setIsProductFormOpen} />
-            <CompanyCard setIsProductFormOpen={setIsProductFormOpen} />
-            <CompanyCard setIsProductFormOpen={setIsProductFormOpen} />
-            <CompanyCard setIsProductFormOpen={setIsProductFormOpen} />
-            <CompanyCard setIsProductFormOpen={setIsProductFormOpen} />
-            <CompanyCard setIsProductFormOpen={setIsProductFormOpen} />
-            <CompanyCard setIsProductFormOpen={setIsProductFormOpen} />
-            <CompanyCard setIsProductFormOpen={setIsProductFormOpen} />
+            <CompanyCard />
+            <CompanyCard />
+            <CompanyCard />
+            <CompanyCard />
+            <CompanyCard />
+            <CompanyCard />
+            <CompanyCard />
+            <CompanyCard />
+            <CompanyCard />
+            <CompanyCard />
         </div>
     )
 }

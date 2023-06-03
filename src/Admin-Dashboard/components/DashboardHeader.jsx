@@ -5,17 +5,19 @@ import ShoppingBasketRoundedIcon from '@mui/icons-material/ShoppingBasketRounded
 const DashboardHeader = () => {
     return (
         <header className={styles.headerWrapper}>
-            <Link to="/" className="group flex gap-3 items-center">
-                <ShoppingBasketRoundedIcon className="text-[#BE185D] group-hover:text-[#DB2777] group-active:text-[#BE185D] !text-[50px]"/>
-                <h1 className="font-bold text-[40px] text-[#BE185D] group-hover:text-[#DB2777] group-active:text-[#BE185D]">Sandy's <span className="font-normal">Store</span></h1>
-            </Link>
+                <Link to="/" className="bg-clip-text text-transparent flex items-center gap-3 font-bold text-[40px] bg-gradient-to-br from-[#DB2777] hover:from-[#A21CAF] via-[#A21CAF] hover:via-[#DB2777] to-[#7E22CE] hover:to-[#7E22CE] active:from-[#DB2777] active:via-[#A21CAF] active:to-[#DB2777]">
+                    <span>
+                        <ShoppingBasketRoundedIcon className="text-[#A21CAF] !text-[40px] -mt-2"/>
+                    </span>
+                    Sandy's <span className="font-normal">Store</span>
+                </Link>
             <ThemeSwitcher />
         </header>
     )
 }
 
 const styles = {
-    headerWrapper: "transition-all duration-200 linear border-b-[1px] dark:border-gray-700 border-pink-200 h-[8vh] w-[100%] dark:bg-[rgb(20,20,31)] bg-pink-50 px-5 flex items-center justify-between"
+    headerWrapper: "transition-all duration-200 linear border-b-[1px] dark:border-gray-800 border-pink-100 h-[8vh] w-[100%] dark:bg-[rgb(20,20,31)] bg-white px-5 flex items-center justify-between"
 }
 
 export default DashboardHeader
