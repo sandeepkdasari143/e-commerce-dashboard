@@ -8,15 +8,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { CLOSE_MODAL } from "../../../redux-store/modal.slice";
 import CompanyForm from "./CompanyForm";
 import ProductsGrid from "./ProductsGrid";
+import CompanyGrid from "./CompanyGrid";
+import { useEffect } from "react";
+import axios from "axios";
+import { SET_COLLECTIONS } from "../../../redux-store/adminStore.slice";
 
 const Stock = () => {
 
     const dispatch = useDispatch();
     const {modalTitle, isModalOpen, isProductFormOpen, isCompanyFormOpen, isProductsGridOpen} = useSelector(state => state.modal);
-    const CloseModal = () => {
-        dispatch(CLOSE_MODAL());
-        
-    }
+    const CloseModal = () => dispatch(CLOSE_MODAL());
 
     return (
         <div className="transition-all duration-200 linear lg:h-[100vh] w-[100vw] dark:bg-[rgb(20,20,31)] bg-pink-50">
@@ -25,7 +26,7 @@ const Stock = () => {
                 <DashboardSidebar />
                 <section className={styles.productsContent}>
                     <StockHeader />
-                    <StockContent />
+                    <CompanyGrid />
                 </section>
             </main>
 

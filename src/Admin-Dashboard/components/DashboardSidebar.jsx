@@ -8,10 +8,11 @@ const DashboardSidebar = () => {
         <section className={styles.sidebarWrapper}>
             <nav className={styles.navBar}>
                 {
-                    navBar?.map((nav) => (
-                        <NavLink className={({ isActive }) => isActive ? `${styles.navLink} bg-pink-200 dark:bg-gray-700` : styles.navLink} to={nav.href}>
+                    navBar?.map((nav, index) => (
+                        <NavLink key={index} className={({ isActive }) => isActive ? `${styles.navLink} bg-pink-200 dark:bg-gray-700` : styles.navLink} to={nav.href}>
                             <span><nav.navIcon /></span>
-                            <span>{nav.navTitle}</span></NavLink>
+                            <span>{nav.navTitle}</span>
+                        </NavLink>
                     ))
                 }
             </nav>

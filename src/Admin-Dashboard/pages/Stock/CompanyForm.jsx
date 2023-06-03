@@ -4,19 +4,36 @@ import AddButton from '../../../components/buttons/AddButton';
 import { useDispatch } from 'react-redux';
 import { CLOSE_MODAL } from '../../../redux-store/modal.slice';
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
+import { usePOSTFetch } from '../../hooks/usePOSTFetch';
+import { ADD_COLLECTION } from '../../../redux-store/adminStore.slice';
+
 const CompanyForm = () => {
     const dispatch = useDispatch();
     const [companyLogoPreview, setCompanyLogoPreview] = React.useState("");
+    
+    const [newCollection, setNewCollection] = React.useState({
+        collectionName: "",
+        collectionDescription: "",
+        collectionLogo: {}
+    });
 
-    const registerCompany = (event) => {
+    const createCollection = async(event) => {
         event.preventDefault();
+        const data = await usePOSTFetch(newCollection, "http://localhost:3690/api/v1/collections")
+        dispatch(ADD_COLLECTION(data?.newCollection));
         dispatch(CLOSE_MODAL())
     }
 
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setNewCollection({ ...newCollection, [name]: value });
+    }
+
     const imageUploadEvent = (e) => {
-        const file = e.target.files[0];
-        console.log(file);
-        setCompanyLogoPreview(URL.createObjectURL(file));
+        const logo = e.target.files[0];
+        console.log(logo);
+        setCompanyLogoPreview(URL.createObjectURL(logo));
+        setNewCollection({...newCollection, collectionLogo: logo});
     }
     return (
         <>
@@ -26,20 +43,27 @@ const CompanyForm = () => {
                         <label className={styles.label} htmlFor="companyName">Company Name</label>
                         <input className={styles.inputField}
                             id="companyName"
+                            name="collectionName"
                             placeholder='Company Name'
+                            onChange={handleInputChange}
+                            maxLength={30}
                             required
+                            value={newCollection.collectionName}
                             type="text" />
                         <p className={styles.helperMessage}>
                             <HelpRoundedIcon className={styles.helpIcon}/>
-                            <span>Please Enter Your Company Name</span>
+                            <span>Please Enter Your Company Name in 30 Characters</span>
                         </p>
                     </div>
                     <div className={styles.textField}>
                         <label className={styles.label} htmlFor="companyDescription">Company Description</label>
                         <textarea className={styles.inputField}
                             id="companyDescription"
+                            name="collectionDescription"
                             placeholder='Company Description'
+                            onChange={handleInputChange}
                             maxLength={100}
+                            value={newCollection.collectionDescription}
                             rows={2}
                             type="text" />
                         <p className={styles.helperMessage}>
@@ -58,7 +82,9 @@ const CompanyForm = () => {
                                     <h1 className=''>Image Preview</h1>
                                 </div>
                             }
-                            <h1 className={styles.labelText}>Click here upload Compay Logo</h1>
+                            <h1 className={styles.labelText}>Click Anywhere To Upload
+                                <span className='font-bold text-[#C026D3]/60'> LOGO</span>
+                            </h1>
                             <input className={styles.hiddenImageInput}
                             id="companyLogo" accept="image/*" type='file'
                             onChange={imageUploadEvent} required/>
@@ -72,7 +98,7 @@ const CompanyForm = () => {
 
                 <footer className={styles.footerButtons}>
                     <SecondaryButton>Cancel</SecondaryButton>
-                    <AddButton onClickHandler={registerCompany}>Add In Collection</AddButton>
+                    <AddButton onClickHandler={createCollection}>Add In Collection</AddButton>
                 </footer>
             </div>
         </>
@@ -82,15 +108,15 @@ const styles = {
     form: "p-3 flex flex-col gap-5 w-[400px]",
     textField: "flex flex-col gap-1",
     label: "font-semibold text-[#C026D3] text-sm",
-    inputField: "px-3 py-2 w-full rounded-lg outline-none dark:bg-gray-900 dark:focus:bg-gray-700 border dark:border-gray-600 dark:focus:border-[#C026D3] font-semibold",
+    inputField: "px-3 py-2 w-full rounded-lg outline-none dark:bg-gray-900 dark:focus:bg-gray-700 border dark:border-gray-600 border-gray-800 focus:border-[#C026D3] focus:bg-[#C026D3]/10 dark:focus:border-[#C026D3] font-semibold text-sm",
     helpIcon:"!text-sm",
     helperMessage: "flex items-center gap-1 text-xs dark:text-gray-500 font-semibold",
     footerButtons: "p-5 flex items-center justify-end gap-5",
 
-    imageUploadLabel: 'relative px-3 py-2 w-full rounded-lg outline-none dark:bg-gray-900 border-dashed border-2 dark:border-[#C026D3] font-semibold text-xl flex items-center justify-between',
-    imagePreviewFallback: 'h-[100px] w-[100px] object-cover rounded-xl border-dashed border-2 dark:border-[#C026D3] dark:text-white/50 bg-gray-700 text-gray-700 flex items-center justify-center text-center text-sm',
+    imageUploadLabel: 'relative px-3 py-2 w-full rounded-lg outline-none dark:bg-gray-900 border-dashed border-[#C026D3] border-2 dark:border-[#C026D3] font-semibold text-xl flex items-center justify-between',
+    imagePreviewFallback: 'h-[100px] w-[100px] object-cover rounded-xl border-dashed border-2 border-[#C026D3] dark:border-[#C026D3] dark:text-white/50 text-gray-700/50 dark:bg-gray-700 text-gray-700 flex items-center justify-center text-center text-sm',
     imagePreview: 'h-[100px] w-[100px] object-cover rounded-xl ',
-    labelText: 'text-sm text-white/70',
+    labelText: 'text-sm text-gray-800/60 dark:text-white/60',
     hiddenImageInput: 'hidden absolute inset-x-0 inset-y-0',
 }
 

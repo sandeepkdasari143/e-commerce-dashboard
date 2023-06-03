@@ -16,7 +16,7 @@ textarea{
 
 /* width */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 10px;
     cursor:  pointer !important;
 }
 
