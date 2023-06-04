@@ -10,27 +10,39 @@ import { ADD_PRODUCT } from "../../../redux-store/adminStore.slice";
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
 import SecondaryButton from "../../../components/buttons/SecondaryButton";
 import AddButton from "../../../components/buttons/AddButton";
+import { useSearchParams } from "react-router-dom";
 
 const ProductForm = () => {
     const dispatch = useDispatch();
-
+    const [searchParams] = useSearchParams();
+    const collectionID = searchParams.get('collectionID');
     const [newProduct, setNewProduct] = React.useState({
         productTitle: "",
         productDescription: "",
-        stock: 0,
+        collectionID,
+        stock: "",
+        discountPercentage: "",
+        minimumRetailPrice: "",
     });
+    const [productImages, setProductImages] = React.useState({});
 
     const addProduct = async (event) => {
         event.preventDefault();
-        const data = await usePOSTFetch(newProduct, "http://localhost:3690/api/v1/products")
+        const data = await usePOSTFetch(newProduct, "http://localhost:3690/api/v1/products", productImages)
+        console.log(data);
         if(data?.newProduct) dispatch(ADD_PRODUCT(data?.newProduct));
         dispatch(CLOSE_MODAL())
-        dispatch(OPEN_PRODUCTS_GRID());
-        dispatch(OPEN_MODAL());
+        if (data?.sucess) {
+            dispatch(OPEN_PRODUCTS_GRID());
+            dispatch(OPEN_MODAL());
+        }
     };
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        let { name, value } = e.target;
+        if (name === "discountPercentage" && name === "minimumRetailPrice" && name === "stock") {
+            value = Number(value);
+        }
         setNewProduct({ ...newProduct, [name]: value });
     }
 
@@ -43,109 +55,174 @@ const ProductForm = () => {
     const imageUploadEvent = async(e) => {
         const files = e.target.files; // typeof files = FileList
         setImages({ ...images, uploadedImages: [...images.uploadedImages, ...files] }); 
-        
     }
 
     React.useEffect(() => {
+        setProductImages({ ...productImages, ...images.uploadedImages });
         setPreviewImageObjects(images.uploadedImages.map((image) => {
             image = URL.createObjectURL(image);
             return image;
         }));
     }, [images.uploadedImages])
     
-    // React.useEffect(()=>console.log(previewImageObjects),[previewImageObjects])//testing
+    // React.useEffect(()=>console.log(productImages),[productImages])//testing
 
     return (
         <div> 
-            <form className={styles.form}>
-                <div className={styles.textField}>
-                    <label className={styles.label} htmlFor="productTitle">
-                    Product Title
-                    </label>
-                    <input
-                    className={styles.inputField}
-                    id="productTitle"
-                    name="productTitle"
-                    placeholder="Product Title"
-                    onChange={handleInputChange}
-                    maxLength={100}
-                    required
-                    value={newProduct.productTitle}
-                    type="text"
-                    />
-                    <p className={styles.helperMessage}>
-                    <HelpRoundedIcon className={styles.helpIcon} />
-                    <span>Please Enter Your Product Title in 100 Characters</span>
-                    </p>
-                </div>
-                <div className={styles.textField}>
-                    <label className={styles.label} htmlFor="productDescription">
-                    Product Description
-                    </label>
-                    <textarea
-                    className={styles.inputField}
-                    id="productDescription"
-                    name="productDescription"
-                    placeholder="Product Description"
-                    onChange={handleInputChange}
-                    maxLength={200}
-                    value={newProduct.productDescription}
-                    rows={4}
-                    type="text"
-                    />
-                    <p className={styles.helperMessage}>
-                    <HelpRoundedIcon className={styles.helpIcon} />
-                    <span>Describe your Product in 200 characters.</span>
-                    </p>
-                </div>
-                <div className={styles.textField}>
-                    <label className={styles.label} htmlFor="stock">
-                    Stock
-                    </label>
-                    <input
-                    className={styles.inputField}
-                    id="stock"
-                    min="0"
-                    name="stock"
-                    placeholder="Stock"
-                    onChange={handleInputChange}
-                    required
-                    value={newProduct.stock}
-                    type="number"
-                    />
-                    <p className={styles.helperMessage}>
-                    <HelpRoundedIcon className={styles.helpIcon} />
-                    <span>Please Enter the Stock of this Product.</span>
-                    </p>
-                </div>
-                <div className={styles.textField}>
-                    <label htmlFor="productImages" className={styles.imageUploadLabel}>
-                        <h1 className={styles.labelText}>Click To Upload
-                            <span className='font-bold text-[#C026D3]/60'> Product Images</span>
-                        </h1>
-                        <div className="max-h-[300px] overflow-auto flex flex-wrap gap-3 items-center justify-center">
-                            {previewImageObjects.length!==0 &&
-                                previewImageObjects?.map((preview, index) => (
-                                    <img key={index} src={preview} className={styles.imagePreview}/>
-                                ))
-                            }
-                        </div>
-                        
-                        <input className={styles.hiddenImageInput}
-                        id="productImages" accept="image/*" type='file' multiple
-                        onChange={imageUploadEvent} required/>
-                    </label>
-                    <p className={styles.helperMessage}>
-                        <HelpRoundedIcon className={styles.helpIcon}/>
-                        <span>Click Anywhere in above area to upload Product Images</span>
-                    </p>
+            <form onSubmit={addProduct} >
+                <div className={styles.form}>
+                    <div className={styles.textField}>
+                        <label className={styles.label} htmlFor="collectionID">
+                        Collection ID
+                        </label>
+                        <input
+                            className={styles.inputField}
+                            id="collectionID"
+                            autoFocus
+                            readOnly
+                            name="collectionID"
+                            required
+                            value={collectionID}
+                            type="text"
+                        />
+                        <p className={styles.helperMessage}>
+                        <HelpRoundedIcon className={styles.helpIcon} />
+                        <span>Collection ID is not editable. Please fill rest of the form.</span>
+                        </p>
+                    </div>
+                    <div className={styles.textField}>
+                        <label className={styles.label} htmlFor="productTitle">
+                        Product Title
+                        </label>
+                        <input
+                        className={styles.inputField}
+                        id="productTitle"
+                        name="productTitle"
+                        placeholder="E.g: MI Phone-4G or iPhone13 125GB"
+                        onChange={handleInputChange}
+                        maxLength={100}
+                        required
+                        value={newProduct.productTitle}
+                        type="text"
+                        />
+                        <p className={styles.helperMessage}>
+                        <HelpRoundedIcon className={styles.helpIcon} />
+                        <span>Please Enter Your Product Title in 100 Characters</span>
+                        </p>
+                    </div>
+                    <div className={styles.textField}>
+                        <label className={styles.label} htmlFor="productDescription">
+                        Product Description
+                        </label>
+                        <textarea
+                        className={styles.inputField}
+                        id="productDescription"
+                        name="productDescription"
+                        placeholder="Sell your product with this amazing description..."
+                        onChange={handleInputChange}
+                        maxLength={200}
+                        value={newProduct.productDescription}
+                        rows={4}
+                        type="text"
+                        />
+                        <p className={styles.helperMessage}>
+                        <HelpRoundedIcon className={styles.helpIcon} />
+                        <span>Describe your Product in 200 characters.</span>
+                        </p>
+                    </div>
+                    <div className={styles.textField}>
+                        <label className={styles.label} htmlFor="stock">
+                        Stock
+                        </label>
+                        <input
+                        className={styles.inputField}
+                        id="stock"
+                        pattern="\d+"
+                        min="0"
+                        name="stock"
+                        placeholder="0"
+                        onChange={handleInputChange}
+                        required
+                        value={newProduct.stock}
+                        type="number"
+                        />
+                        <p className={styles.helperMessage}>
+                        <HelpRoundedIcon className={styles.helpIcon} />
+                        <span>Please Enter the Stock of this Product.</span>
+                        </p>
+                    </div>
+                    <div className={styles.textField}>
+                        <label className={styles.label} htmlFor="minimumRetailPrice">
+                        Minimum Retail Price
+                        </label>
+                        <input
+                            className={styles.inputField}
+                            pattern="\d+"
+                            id="minimumRetailPrice"
+                            min="0"
+                            name="minimumRetailPrice"
+                            placeholder="MRP of this Product..."
+                            onChange={handleInputChange}
+                            required
+                            value={newProduct.minimumRetailPrice}
+                            type="number"
+                        />
+                        <p className={styles.helperMessage}>
+                        <HelpRoundedIcon className={styles.helpIcon} />
+                        <span>Please Enter the MRP of the product.</span>
+                        </p>
+                    </div>
+                    <div className={styles.textField}>
+                        <label className={styles.label} htmlFor="discountPercentage">
+                        Discount Percentage
+                        </label>
+                        <input
+                            className={styles.inputField}
+                            id="discountPercentage"
+                            pattern="\d+"
+                            min="0"
+                            max="100"
+                            name="discountPercentage"
+                            placeholder="0-100"
+                            onChange={handleInputChange}
+                            required
+                            value={newProduct.discountPercentage}
+                            type="number"
+                        />
+                        <p className={styles.helperMessage}>
+                        <HelpRoundedIcon className={styles.helpIcon} />
+                        <span>Please Enter the Discount Percentage from 0 to 100.</span>
+                        </p>
+                    </div>
+                    <div className={styles.textField}>
+                        <label htmlFor="productImages" className={styles.imageUploadLabel}>
+                            <h1 className={styles.labelText}>Click To Upload
+                                <span className='font-bold text-[#C026D3]/60'> Product Images</span>
+                            </h1>
+                            <div className="max-h-[300px] overflow-auto flex flex-wrap gap-3 items-center justify-center">
+                                {previewImageObjects.length!==0 &&
+                                    previewImageObjects?.map((preview, index) => (
+                                        <img key={index} src={preview} className={styles.imagePreview}/>
+                                    ))
+                                }
+                            </div>
+                            
+                            <input className={styles.hiddenImageInput}
+                            id="productImages" accept="image/*" type='file' multiple
+                            onChange={imageUploadEvent} required/>
+                        </label>
+                        <p className={styles.helperMessage}>
+                            <HelpRoundedIcon className={styles.helpIcon}/>
+                            <span>Click Anywhere in above area to upload Product Images</span>
+                        </p>
+                    </div>
                 </div>
                 
+                <footer className={styles.footerButtons}>
+                    <SecondaryButton>Cancel</SecondaryButton>
+                    <AddButton type="submit">Add In Collection</AddButton>
+                </footer>
             </form>
-            <footer className={styles.footerButtons}>
-                <SecondaryButton>Cancel</SecondaryButton>
-                <AddButton>Add In Collection</AddButton>
-            </footer>
         </div>
         
     );

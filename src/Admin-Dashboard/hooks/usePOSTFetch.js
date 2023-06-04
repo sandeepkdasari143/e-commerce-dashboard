@@ -1,12 +1,17 @@
-import React from 'react'
 
-export const usePOSTFetch = async (inputOBJ, URL) => {
+export const usePOSTFetch = async (inputOBJ, URL, productImages) => {
     
     const formData = new FormData();
 
     for (const key in inputOBJ) {
+        
         formData.set(`${key}`, inputOBJ[key]);
     } 
+    if (productImages) {
+        Object.keys(productImages).map((imageFile, index) => {
+            formData.set(`productImage${index + 1}`, productImages[imageFile]);
+        })
+    }
 
     const OPTIONS = {
         method: 'POST',

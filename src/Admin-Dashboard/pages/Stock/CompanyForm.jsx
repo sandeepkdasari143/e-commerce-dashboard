@@ -19,7 +19,8 @@ const CompanyForm = () => {
     const createCollection = async(event) => {
         event.preventDefault();
         const data = await usePOSTFetch(newCollection, "http://localhost:3690/api/v1/collections")
-        if(data?.newCollection) dispatch(ADD_COLLECTION(data?.newCollection));
+        if (data?.newCollection) dispatch(ADD_COLLECTION(data?.newCollection));
+        console.log(data)
         dispatch(CLOSE_MODAL())
     }
 
@@ -38,68 +39,70 @@ const CompanyForm = () => {
     return (
         <>
             <div>
-                <form className={styles.form}>
-                    <div className={styles.textField}>
-                        <label className={styles.label} htmlFor="companyName">Company Name</label>
-                        <input className={styles.inputField}
-                            id="companyName"
-                            name="collectionName"
-                            placeholder='Company Name'
-                            onChange={handleInputChange}
-                            maxLength={30}
-                            required
-                            value={newCollection.collectionName}
-                            type="text" />
-                        <p className={styles.helperMessage}>
-                            <HelpRoundedIcon className={styles.helpIcon}/>
-                            <span>Please Enter Your Company Name in 30 Characters</span>
-                        </p>
-                    </div>
-                    <div className={styles.textField}>
-                        <label className={styles.label} htmlFor="companyDescription">Company Description</label>
-                        <textarea className={styles.inputField}
-                            id="companyDescription"
-                            name="collectionDescription"
-                            placeholder='Company Description'
-                            onChange={handleInputChange}
-                            maxLength={100}
-                            value={newCollection.collectionDescription}
-                            rows={2}
-                            type="text" />
-                        <p className={styles.helperMessage}>
-                            <HelpRoundedIcon className={styles.helpIcon}/>
-                            <span>Describe your Company in 100 characters.</span>
-                        </p>
-                    </div>
+                <form onSubmit={createCollection}>
+                    <div className={styles.form}>
+                        <div className={styles.textField}>
+                            <label className={styles.label} htmlFor="companyName">Company Name</label>
+                            <input className={styles.inputField}
+                                id="companyName"
+                                name="collectionName"
+                                placeholder='Company Name'
+                                onChange={handleInputChange}
+                                maxLength={30}
+                                required
+                                value={newCollection.collectionName}
+                                type="text" />
+                            <p className={styles.helperMessage}>
+                                <HelpRoundedIcon className={styles.helpIcon}/>
+                                <span>Please Enter Your Company Name in 30 Characters</span>
+                            </p>
+                        </div>
+                        <div className={styles.textField}>
+                            <label className={styles.label} htmlFor="companyDescription">Company Description</label>
+                            <textarea className={styles.inputField}
+                                id="companyDescription"
+                                name="collectionDescription"
+                                placeholder='Company Description'
+                                onChange={handleInputChange}
+                                maxLength={100}
+                                value={newCollection.collectionDescription}
+                                rows={2}
+                                type="text" />
+                            <p className={styles.helperMessage}>
+                                <HelpRoundedIcon className={styles.helpIcon}/>
+                                <span>Describe your Company in 100 characters.</span>
+                            </p>
+                        </div>
 
-                    <div className={styles.textField}>
-                        <label htmlFor="companyLogo" className={styles.imageUploadLabel}>
-                            {
-                                companyLogoPreview ? 
-                                    <img className={styles.imagePreview}
-                                        src={companyLogoPreview} /> :
-                                    <div className={styles.imagePreviewFallback}>
-                                    <h1 className=''>Image Preview</h1>
-                                </div>
-                            }
-                            <h1 className={styles.labelText}>Click Anywhere To Upload
-                                <span className='font-bold text-[#C026D3]/60'> LOGO</span>
-                            </h1>
-                            <input className={styles.hiddenImageInput}
-                            id="companyLogo" accept="image/*" type='file'
-                            onChange={imageUploadEvent} required/>
-                        </label>
-                        <p className={styles.helperMessage}>
-                            <HelpRoundedIcon className={styles.helpIcon}/>
-                            <span>Click Anywhere in above area to upload Company's Logo</span>
-                        </p>
+                        <div className={styles.textField}>
+                            <label htmlFor="companyLogo" className={styles.imageUploadLabel}>
+                                {
+                                    companyLogoPreview ? 
+                                        <img className={styles.imagePreview}
+                                            src={companyLogoPreview} /> :
+                                        <div className={styles.imagePreviewFallback}>
+                                        <h1 className=''>Image Preview</h1>
+                                    </div>
+                                }
+                                <h1 className={styles.labelText}>Click Anywhere To Upload
+                                    <span className='font-bold text-[#C026D3]/60'> LOGO</span>
+                                </h1>
+                                <input className={styles.hiddenImageInput}
+                                id="companyLogo" accept="image/*" type='file'
+                                onChange={imageUploadEvent}/>
+                            </label>
+                            <p className={styles.helperMessage}>
+                                <HelpRoundedIcon className={styles.helpIcon}/>
+                                <span>Click Anywhere in above area to upload Company Logo</span>
+                            </p>
+                        </div>
                     </div>
+                    <footer className={styles.footerButtons}>
+                        <SecondaryButton>Cancel</SecondaryButton>
+                        <AddButton type="submit">Add In Collection</AddButton>
+                    </footer>
                 </form>
-
-                <footer className={styles.footerButtons}>
-                    <SecondaryButton>Cancel</SecondaryButton>
-                    <AddButton onClickHandler={createCollection}>Add In Collection</AddButton>
-                </footer>
+                
             </div>
         </>
     )

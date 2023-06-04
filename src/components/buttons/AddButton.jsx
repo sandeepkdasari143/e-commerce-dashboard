@@ -1,8 +1,8 @@
 
-const AddButton = ({ children, onClickHandler }) => {
+const AddButton = ({ children, type, onClickHandler }) => {
     return (
         <button onClick={onClickHandler}
-            className={styles.primaryBtn}>
+            className={styles.primaryBtn} type={type}>
             
             {children}
         </button>

@@ -1,14 +1,12 @@
-import React from 'react'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { IconButton } from "@mui/material";
 import AddButton from '../../../components/buttons/AddButton';
 import SecondaryButton from '../../../components/buttons/SecondaryButton';
-import ShortUniqueId from 'short-unique-id';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { OPEN_MODAL, OPEN_PRODUCT_FORM, OPEN_PRODUCTS_GRID } from "../../../redux-store/modal.slice";
 
-const CompanyCard = ({collectionName, collectionDescription, collectionLogo}) => {
+const CompanyCard = ({_id, collectionName, collectionDescription, collectionLogo}) => {
     const dispatch = useDispatch();
     const displayAllProducts = () => {
         dispatch(OPEN_PRODUCTS_GRID());
@@ -16,13 +14,11 @@ const CompanyCard = ({collectionName, collectionDescription, collectionLogo}) =>
     }
     
     const openCompanyForm = () => {
-        navigate(`/admin/stock?collectionID=${collectionID}}`);
+        navigate(`/admin/stock?collectionID=${_id}`);
         dispatch(OPEN_PRODUCT_FORM());
         return dispatch(OPEN_MODAL())
     }
     const navigate = useNavigate();
-    const uid = new ShortUniqueId({ length: 10 });
-    const collectionID = uid();
     return (
         <article className={styles.companyCard}>
             <div className={styles.companyDetailsWrapper}>
