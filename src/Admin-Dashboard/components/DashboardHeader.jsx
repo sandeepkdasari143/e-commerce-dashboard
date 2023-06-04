@@ -5,9 +5,9 @@ import ShoppingBasketRoundedIcon from '@mui/icons-material/ShoppingBasketRounded
 const DashboardHeader = () => {
     return (
         <header className={styles.headerWrapper}>
-                <Link to="/" className="bg-clip-text text-transparent flex items-center gap-3 font-bold text-[40px] bg-gradient-to-br from-[#DB2777] hover:from-[#A21CAF] via-[#A21CAF] hover:via-[#DB2777] to-[#7E22CE] hover:to-[#7E22CE] active:from-[#DB2777] active:via-[#A21CAF] active:to-[#DB2777]">
+                <Link to="/" className="bg-clip-text text-transparent flex items-center gap-3 font-bold text-3xl bg-gradient-to-br from-[#DB2777] hover:from-[#A21CAF] via-[#A21CAF] hover:via-[#DB2777] to-[#7E22CE] hover:to-[#7E22CE] active:from-[#DB2777] active:via-[#A21CAF] active:to-[#DB2777]">
                     <span>
-                        <ShoppingBasketRoundedIcon className="text-[#A21CAF] !text-[40px] -mt-2"/>
+                        <ShoppingBasketRoundedIcon className="text-[#A21CAF] scale-125 -mt-2"/>
                     </span>
                     Sandy's <span className="font-normal">Store</span>
                 </Link>
