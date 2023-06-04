@@ -9,7 +9,6 @@ import { ADD_COLLECTION } from '../../../redux-store/adminStore.slice';
 
 const CompanyForm = () => {
     const dispatch = useDispatch();
-    const [companyLogoPreview, setCompanyLogoPreview] = React.useState("");
     
     const [newCollection, setNewCollection] = React.useState({
         collectionName: "",
@@ -20,7 +19,7 @@ const CompanyForm = () => {
     const createCollection = async(event) => {
         event.preventDefault();
         const data = await usePOSTFetch(newCollection, "http://localhost:3690/api/v1/collections")
-        dispatch(ADD_COLLECTION(data?.newCollection));
+        if(data?.newCollection) dispatch(ADD_COLLECTION(data?.newCollection));
         dispatch(CLOSE_MODAL())
     }
 
@@ -29,9 +28,10 @@ const CompanyForm = () => {
         setNewCollection({ ...newCollection, [name]: value });
     }
 
+    const [companyLogoPreview, setCompanyLogoPreview] = React.useState("");
     const imageUploadEvent = (e) => {
         const logo = e.target.files[0];
-        console.log(logo);
+        // console.log(logo);
         setCompanyLogoPreview(URL.createObjectURL(logo));
         setNewCollection({...newCollection, collectionLogo: logo});
     }

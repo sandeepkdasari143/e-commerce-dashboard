@@ -3,15 +3,11 @@ import DashboardSidebar from "../../components/DashboardSidebar";
 import AddModal from "../../../components/ui-components/AddModal";
 import ProductForm from "./ProductForm";
 import StockHeader from "./StockHeader";
-import StockContent from "./StockContent";
 import { useDispatch, useSelector } from "react-redux";
 import { CLOSE_MODAL } from "../../../redux-store/modal.slice";
 import CompanyForm from "./CompanyForm";
 import ProductsGrid from "./ProductsGrid";
 import CompanyGrid from "./CompanyGrid";
-import { useEffect } from "react";
-import axios from "axios";
-import { SET_COLLECTIONS } from "../../../redux-store/adminStore.slice";
 
 const Stock = () => {
 

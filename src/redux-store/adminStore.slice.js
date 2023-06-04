@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const initialState = {
     collections: [],
+    products: [],
 }
 
 const adminStoreSlice = createSlice({
@@ -19,11 +20,23 @@ const adminStoreSlice = createSlice({
                 b.updatedAt.toLocaleString().localeCompare(a.updatedAt.toLocaleString())
             );
             state.collections = sortedCollections;
+        },
+        SET_PRODUCTS: (state, action) => {
+            const sortedProducts = [...action.payload].sort((a, b) =>
+                b.updatedAt.toLocaleString().localeCompare(a.updatedAt.toLocaleString())
+            );
+            state.products = sortedProducts;
+        },
+        ADD_PRODUCT: (state, action) => {
+            const sortedProducts = [...state.products, action.payload].sort((a, b) =>
+                b.updatedAt.toLocaleString().localeCompare(a.updatedAt.toLocaleString())
+            );
+            state.products = sortedProducts;
         }
     }
 })
 
 
-export const { SET_COLLECTIONS, ADD_COLLECTION} = adminStoreSlice.actions;
+export const { SET_COLLECTIONS, ADD_COLLECTION, SET_PRODUCTS, ADD_PRODUCT} = adminStoreSlice.actions;
 
 export default adminStoreSlice.reducer;

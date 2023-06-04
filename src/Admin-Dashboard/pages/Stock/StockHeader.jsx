@@ -1,8 +1,7 @@
-import React from 'react'
 import AddButton from '../../../components/buttons/AddButton'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch} from "react-redux";
-import { SET_MODAL_TITLE, OPEN_MODAL, OPEN_COLLECTION_FORM } from "../../../redux-store/modal.slice";
+import { OPEN_MODAL, OPEN_COLLECTION_FORM } from "../../../redux-store/modal.slice";
 
 const StockHeader = () => {
     const dispatch = useDispatch();
@@ -24,4 +23,4 @@ const StockHeader = () => {
     )
 }
 
-export default StockHeader
+export default StockHeader;
