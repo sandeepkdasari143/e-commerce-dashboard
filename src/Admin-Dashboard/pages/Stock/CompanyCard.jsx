@@ -44,7 +44,7 @@ const styles = {
     companyDetails: "flex gap-5",
     companyImage: "w-[80px] h-[80px] rounded-xl object-cover",
     companyTitle: "font-bold dark:text-gray-300 text-gray-900",
-    companyDesc: "dark:text-gray-500 text-gray-400 font-semibold text-sm",
+    companyDesc: "dark:text-gray-500 text-gray-500 font-semibold text-xs line-clamp-3",
     DeleteIcon: "absolute top-1 right-1 hidden group-hover:flex transition-all duration-1000 linear text-3xl cursor-pointer text-red-600 hover:text-red-500 hover:scale-125",
     buttons: "flex items-center justify-center gap-5"
 }

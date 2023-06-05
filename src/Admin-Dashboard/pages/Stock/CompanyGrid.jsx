@@ -30,10 +30,12 @@ const CompanyGrid = () => {
     )
 
     return (
-        <div className="md:h-[80%] overflow-auto flex flex-wrap items-center justify-center gap-5">
-            {collections?.map((collection) => (
-                <CompanyCard key={collection._id} {...collection} />
-            ))}
+        <div className="h-full md:h-[80%] w-full">
+            <div className='h-full overflow-auto w-full flex flex-wrap gap-5 justify-center py-5'>
+                {collections?.map((collection) => (
+                    <CompanyCard key={collection._id} {...collection} />
+                ))}
+            </div>
         </div>
     )
 }

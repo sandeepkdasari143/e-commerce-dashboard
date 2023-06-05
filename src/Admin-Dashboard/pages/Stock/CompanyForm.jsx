@@ -64,13 +64,13 @@ const CompanyForm = () => {
                                 name="collectionDescription"
                                 placeholder='Company Description'
                                 onChange={handleInputChange}
-                                maxLength={100}
+                                maxLength={500}
                                 value={newCollection.collectionDescription}
                                 rows={2}
                                 type="text" />
                             <p className={styles.helperMessage}>
                                 <HelpRoundedIcon className={styles.helpIcon}/>
-                                <span>Describe your Company in 100 characters.</span>
+                                <span>Describe your Company in 500 characters.</span>
                             </p>
                         </div>
 

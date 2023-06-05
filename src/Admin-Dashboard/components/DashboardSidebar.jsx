@@ -21,7 +21,7 @@ const DashboardSidebar = () => {
 }
 
 const styles = {
-    sidebarWrapper: "transition-all duration-200 linear border-b md:border-r-[1px] flex items-center md:items-start dark:text-white text-gray-800 dark:border-gray-800 border-pink-100 md:h-[92vh] md:w-[30%] lg:w-[15%] w-[100vh] dark:bg-[rgb(20,20,31)] bg-white",
+    sidebarWrapper: "transition-all duration-200 linear border-b md:border-r-[1px] flex items-center md:items-start dark:text-white text-gray-800 dark:border-gray-800 border-pink-100 md:h-[92vh] md:w-[30%] lg:w-[15%] w-[100vw] dark:bg-[rgb(20,20,31)] bg-white",
 
     navBar: "flex flex-wrap md:flex-col gap-2 md:gap-3 my-7 mx-3 md:mx-auto",
 

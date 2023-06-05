@@ -40,6 +40,6 @@ const Stock = () => {
 };
 const styles = {
     productsWrapper: "flex flex-col md:flex-row",
-    productsContent: "transition-all duration-200 linear h-[92vh] md:w-[70%] lg:w-[85%] w-[100vh] dark:bg-[rgb(20,20,31)] bg-[#FDF4FF]",
+    productsContent: "transition-all duration-200 linear h-full md:h-[92vh] md:w-[70%] lg:w-[85%] w-[100vw] dark:bg-[rgb(20,20,31)] bg-[#FDF4FF]",
 };
 export default Stock;
