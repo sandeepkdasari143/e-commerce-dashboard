@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
+import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import CompanyCard from './CompanyCard'
-import { useEffect } from "react";
 import axios from "axios";
 import { SET_COLLECTIONS } from "../../../redux-store/adminStore.slice";
 
@@ -9,7 +9,6 @@ const CompanyGrid = () => {
     const dispatch = useDispatch();
     // const [collections, setCollections] = useState([]);
     useEffect(() => {
-        fetchCollections();
         async function fetchCollections() {
             const axiosData = await axios.get("http://localhost:3690/api/v1/collections")
             if (axiosData.data.success === true) {
@@ -21,6 +20,8 @@ const CompanyGrid = () => {
             }
             return;
         }
+        fetchCollections();
+        return fetchCollections;
     }, []);
 
     const collections = useSelector(state => state.adminStore.collections)

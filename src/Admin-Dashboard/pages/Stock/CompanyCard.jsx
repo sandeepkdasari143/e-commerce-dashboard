@@ -9,6 +9,7 @@ import { OPEN_MODAL, OPEN_PRODUCT_FORM, OPEN_PRODUCTS_GRID } from "../../../redu
 const CompanyCard = ({_id, collectionName, collectionDescription, collectionLogo}) => {
     const dispatch = useDispatch();
     const displayAllProducts = () => {
+        navigate(`/admin/stock?collectionID=${_id}`);
         dispatch(OPEN_PRODUCTS_GRID());
         return dispatch(OPEN_MODAL())
     }
