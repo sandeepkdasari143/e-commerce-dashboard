@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { SWITCH_THEME } from '../../redux-store/theme.slice';
+import { darkTheme } from '../../lib/MUIThemeObjects/darkTheme';
+import { lightTheme } from '../../lib/MUIThemeObjects/lightTheme';
 
 const ThemeSwitcher = () => {
-    const theme = useSelector(state => state.theme.theme);
+    const theme = useSelector(state => state.theme.mode);
     const dispatch = useDispatch();
     const switchTheme = () => {
-        dispatch(SWITCH_THEME());
+        dispatch(SWITCH_THEME({ darkTheme, lightTheme }));
     }
     return (
         <button onClick={switchTheme} className='p-1 rounded-full dark:bg-pink-700 border border-pink-600  bg-pink-100 dark:text-gray-900 text-gray-100 font-bold uppercase text-xl flex items-center'>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_THEME } from './redux-store/theme.slice';
 import { Routes, Route, Navigate} from "react-router-dom";
@@ -13,21 +13,32 @@ import Orders from './Admin-Dashboard/pages/Orders';
 import Transactions from './Admin-Dashboard/pages/Transactions';
 import Stock from './Admin-Dashboard/pages/Stock';
 import AdminPanel from './Admin-Dashboard/pages/AdminPanel';
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import { darkTheme } from './lib/MUIThemeObjects/darkTheme';
+
 
 const App = () => {
 
-  const theme = useSelector(state => state.theme.theme);
+  const mode = useSelector(state => state.theme.mode);
+  const Theme = useSelector(state => state.theme.theme);
+
+  const [theme, setTheme] = useState(null);
   const dispatch = useDispatch();
   // const navigate = useNavigate();
 
+  React.useEffect(() => {
+    const theme = createTheme(Theme)
+    setTheme(theme);
+  },[Theme])
+
   // If the "theme" value of the context changes, then this useEffect will be called...
   React.useEffect(()=>{
-    if(theme === "dark"){
+    if(mode === "dark"){
       document.documentElement.classList.add("dark");
     }else{
       document.documentElement.classList.remove("dark");
     }
-  },[theme])
+  },[mode])
 
   // For Browser Default Mode...
   React.useEffect(()=>{
@@ -47,19 +58,21 @@ const App = () => {
   }
 
   return (
-    <> 
-      <Routes>
-        <Route path="/login" element={<LogIn />} />
-        <Route path='/signup' element={<SignUp />} />
-        <Route path="/" element={<HomeLayout />}>
-          <Route index element={<Home />} />
-        </Route>
-        <Route path="/admin/dashboard" element={<AdminProtectedRoute><DashboardHome /></AdminProtectedRoute>} />
-        <Route path="/admin/stock" element={<AdminProtectedRoute><Stock /></AdminProtectedRoute>} />
-        <Route path="/admin/orders" element={<AdminProtectedRoute><Orders /></AdminProtectedRoute>} />
-        <Route path="/admin/transactions" element={<AdminProtectedRoute><Transactions /></AdminProtectedRoute>} />
-        <Route path="/admin/panel" element={<AdminProtectedRoute><AdminPanel /></AdminProtectedRoute>} />
-      </Routes>
+    <>
+      {theme && <ThemeProvider theme={theme}>
+        <Routes>
+          <Route path="/login" element={<LogIn />} />
+          <Route path='/signup' element={<SignUp />} />
+          <Route path="/" element={<HomeLayout />}>
+            <Route index element={<Home />} />
+          </Route>
+          <Route path="/admin/dashboard" element={<AdminProtectedRoute><DashboardHome /></AdminProtectedRoute>} />
+          <Route path="/admin/stock" element={<AdminProtectedRoute><Stock /></AdminProtectedRoute>} />
+          <Route path="/admin/orders" element={<AdminProtectedRoute><Orders /></AdminProtectedRoute>} />
+          <Route path="/admin/transactions" element={<AdminProtectedRoute><Transactions /></AdminProtectedRoute>} />
+          <Route path="/admin/panel" element={<AdminProtectedRoute><AdminPanel /></AdminProtectedRoute>} />
+        </Routes>
+      </ThemeProvider>}
     </>
   );
 }

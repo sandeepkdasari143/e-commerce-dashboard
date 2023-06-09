@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { darkTheme } from "../lib/MUIThemeObjects/darkTheme";
 
 export const initialState = {
-    theme: 'dark',
+    mode: 'dark',
+    theme: darkTheme,
 }
 
 export const themeSlice = createSlice({
@@ -9,13 +11,15 @@ export const themeSlice = createSlice({
     initialState,
     reducers: {
         SET_THEME: (state, action) => {
-            if(state.theme && action.payload && (typeof action.payload === 'string'))
-                state.theme = action.payload.toLowerCase();
+            if(state.mode && action.payload && (typeof action.payload === 'string'))
+                state.mode = action.payload.toLowerCase();
         },
         
-        SWITCH_THEME: (state) => {
-            if (state.theme)
-                state.theme = state.theme.toLowerCase() === 'dark' ? 'light' : 'dark';
+        SWITCH_THEME: (state, action) => {
+            if (state.mode && action.payload) {
+                state.mode = state.mode.toLowerCase() === 'dark' ? 'light' : 'dark';
+                state.theme = state.mode === 'dark' ? action.payload.darkTheme : action.payload.lightTheme 
+            }
         }
     }
 })
